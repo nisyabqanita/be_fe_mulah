@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tables</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%; 
+            margin-bottom: 20px; 
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center; 
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            vertical-align: middle; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Table 1</h1>
+    <table border="1" id="table1">
+        <tr>
+            <th>Index</th>
+            <th>Value</th>
+        </tr>
+    </table>
+
+    <h1>Table 2</h1>
+    <table border="1" id="table2">
+        <tr>
+            <th>Category</th>
+            <th>Value</th>
+        </tr>
+    </table>
+
+    <script>
+        fetch('/tables')
+            .then(response => response.json())
+            .then(data => {
+
+                const table1 = document.getElementById('table1');
+                Object.entries(data.table1).forEach(([key, value]) => {
+                    const row = table1.insertRow();
+                    row.insertCell().innerText = key;
+                    row.insertCell().innerText = value;
+                });
+
+                const table2 = document.getElementById('table2');
+                Object.entries(data.table2).forEach(([key, value]) => {
+                    const row = table2.insertRow();
+                    row.insertCell().innerText = key;
+                    row.insertCell().innerText = value;
+                });
+            });
+    </script>
+</body>
+</html>
